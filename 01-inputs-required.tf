@@ -36,3 +36,7 @@ variable "address_prefix" {
 variable "proxy_subnet_vip" {
     description = ""  
 }
+
+variable "vnet_name" {
+    description = ""    
+}
