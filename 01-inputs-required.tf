@@ -32,3 +32,7 @@ variable "github_organization" {
 variable "address_prefix" {
     description = ""
 }
+
+variable "proxy_subnet_vip" {
+    description = ""  
+}
