@@ -21,13 +21,6 @@ variable "proxy_admin_username" {
 variable "proxy_admin_password" {
     description = "Proxy Admin Password"
 }
-variable "github_token" {
-    description = ""
-}
-
-variable "github_organization" {
-  description = ""
-}
 
 variable "address_prefix" {
     description = ""
