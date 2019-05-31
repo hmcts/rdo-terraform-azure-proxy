@@ -1,3 +1,7 @@
+variable "subscription_id" {
+  description = "Subscription ID to make the changes in"
+}
+
 variable "rg_name" {
   description = "Name of the rg to put the network in"
 }
