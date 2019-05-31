@@ -1,4 +1,3 @@
-
 variable "rg_name" {
   description = "Name of the rg to put the network in"
 }
@@ -18,4 +17,3 @@ variable "proxy_admin_username" {
 variable "proxy_admin_password" {
     description = "Proxy Admin Password"
 }
-
