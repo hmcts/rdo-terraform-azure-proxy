@@ -1,0 +1,16 @@
+---
+- name: "Restart docker"
+  service:
+    name: docker
+    state: restarted
+  listen: "restart docker"
+
+  - name: Restart container
+  docker_container:
+    name: rdo-dockker-proxy
+    image: rdo-dockker-proxy
+    state: started
+    restart: yes
+    ports:
+     - "8080:3128"
+  listen: "restart container"
