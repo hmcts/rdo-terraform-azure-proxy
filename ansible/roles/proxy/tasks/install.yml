@@ -1,0 +1,25 @@
+---
+- name: "Install docker"
+  package:
+    state: present
+    name: "{{ items }}"
+  with_items:
+    - "docker"
+  notify: "restart docker"
+
+- name: "Pull rdo-docker-proxy image"
+  docker_image:
+    repository: hmctssandbox.azurecr.io
+    name: rdo-docker-proxy
+    source: pull
+  
+- name: "Run rdo-docker-proxy container"
+    docker_container:
+    name: rdo-docker-proxy
+    image: rdo-docker-proxy
+
+- name: "Container present"
+  docker_container:
+    name: rdo-docker-proxy
+    state: present
+  notify: "restart container"
