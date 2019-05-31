@@ -1,3 +1,6 @@
+variable "subscription_id" {
+  description = "Subscription ID to make the changes in"
+}
 
 variable "rg_name" {
   description = "Name of the rg to put the network in"
@@ -18,4 +21,22 @@ variable "proxy_admin_username" {
 variable "proxy_admin_password" {
     description = "Proxy Admin Password"
 }
+variable "github_token" {
+    description = ""
+}
 
+variable "github_organization" {
+  description = ""
+}
+
+variable "address_prefix" {
+    description = ""
+}
+
+variable "proxy_subnet_vip" {
+    description = ""  
+}
+
+variable "vnet_name" {
+    description = ""    
+}

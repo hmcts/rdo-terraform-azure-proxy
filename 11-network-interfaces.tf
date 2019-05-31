@@ -1,12 +1,12 @@
 # Disabled as using F5 provisioned subnets
 
-#resource "azurerm_subnet" "proxy_subnet" {
-#  name                              = "${var.proxy_vm_name}-subnet"
-#  resource_group_name               = "${azurerm_resource_group.rg_dmz.name}"
-#  virtual_network_name              = "${azurerm_virtual_network.vnet_dmz.name}"
-#  #address_prefix                    = "${var.proxy_subnet_address_prefix}"
-#  address_prefix                    = "${element(azurerm_subnet.subnet.*.id, index(azurerm_subnet.subnet.*.name, var.proxy_subnet_vip))}"
-#}
+resource "azurerm_subnet" "subnet" {
+  name                                     = "${var.proxy_vm_name}-subnet"
+  resource_group_name                      = "${var.rg_name}"
+  virtual_network_name                     = "${var.vnet_name}"
+  address_prefix                           = "${var.address_prefix}"
+  #address_prefix                           = "${element(azurerm_subnet.subnet.*.id, index(azurerm_subnet.subnet.*.name, var.proxy_subnet_vip))}"
+}
 
 resource "azurerm_public_ip" "proxy_pip" {
    name                                     = "${var.proxy_vm_name}-pip"
