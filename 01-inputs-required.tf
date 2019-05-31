@@ -12,16 +12,13 @@ variable "proxy_vm_name" {
     description = "Proxy VM Name"
 }
 
-
-variable "" {
-    description = ""
+variable "proxy_admin_username" {
+    description = "Proxy Admin UserName"
 }
 
-
-variable "" {
-    description = ""
+variable "proxy_admin_password" {
+    description = "Proxy Admin Password"
 }
-
 
 variable "" {
     description = ""
