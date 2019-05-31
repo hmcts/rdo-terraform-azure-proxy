@@ -1,12 +1,23 @@
 ---
-- name: "Install docker"
+- name: "Install pre-requisites"
   package:
     state: present
     name: "{{ items }}"
   with_items:
     - "docker"
+    - "curl"
   notify: "restart docker"
 
+- name: "Install azure-cli"
+  shell: curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+- name: "Log into ACR"
+  shell: az acr login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+  environment:
+    ARM_CLIENT_ID: 
+    ARM_CLIENT_SECRET:
+    ARM_TENANT_ID:
+    
 - name: "Pull rdo-docker-proxy image"
   docker_image:
     repository: hmctssandbox.azurecr.io
