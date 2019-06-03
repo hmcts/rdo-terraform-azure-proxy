@@ -12,7 +12,7 @@ resource "azurerm_public_ip" "proxy_pip" {
    name                                     = "${var.proxy_vm_name}-pip"
    location                                 = "${var.rg_location}"
    resource_group_name                      = "${var.rg_name}"
-   public_ip_address_allocation             = "static"
+   allocation_method                        = "static"
    count                                    = 1
  }
 
@@ -24,7 +24,7 @@ resource "azurerm_network_interface" "proxy_nic" {
   ip_configuration {
     name                                    = "${var.proxy_vm_name}-ip"
     subnet_id                               = "${var.proxy_subnet_vip}"
-    private_ip_address_allocation           = "Dynamic"
+    allocation_method                       = "Dynamic"
     public_ip_address_id                    = "${element(azurerm_public_ip.proxy_pip.*.id, count.index)}"
   }
 }
