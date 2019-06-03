@@ -88,7 +88,7 @@ resource "null_resource" "ansible-runs" {
   provisioner "remote-exec" {
     inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
-      #"ansible-playbook ~/ansible/playbooks/playbook.yml"
+      "ansible-playbook ~/ansible/playbooks/main.yml"
     ]
 
     connection {
