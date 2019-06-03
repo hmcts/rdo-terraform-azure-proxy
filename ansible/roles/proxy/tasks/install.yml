@@ -25,7 +25,7 @@
     source: pull
   
 - name: "Run rdo-docker-proxy container"
-    docker_container:
+  docker_container:
     name: rdo-docker-proxy
     image: rdo-docker-proxy
 
