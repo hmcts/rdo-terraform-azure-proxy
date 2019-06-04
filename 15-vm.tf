@@ -72,9 +72,7 @@ resource "null_resource" "ansible-runs" {
         "azurerm_virtual_machine_extension.ansible_extension",
         "azurerm_virtual_machine.proxy_vm"
     ]
-}
-
-provisioner "file" {
+  provisioner "file" {
     source                                = "${path.module}/ansible/"
     destination                           = "~/ansible/"
 
@@ -86,7 +84,7 @@ provisioner "file" {
     }
   }
 
-provisioner "local-exec" {
+  provisioner "local-exec" {
     command = <<EOF
       git clone https://github.com/hmcts/rdo-terraform-azure-proxy.git;
       cd rdo-terraform-azure-proxy/ansible;
@@ -96,7 +94,7 @@ provisioner "local-exec" {
       EOF
   }
 
-provisioner "remote-exec" {
+  provisioner "remote-exec" {
     inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
       "ansible-playbook ~/ansible/roles/proxy/tasks/main.yml --extra-vars 'ARM_CLIENT_ID=$ARM_CLIENT_ID' --extra-vars 'ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET' --extra-vars 'ARM_TENANT_ID=$ARM_TENANT_ID'"
@@ -108,4 +106,5 @@ provisioner "remote-exec" {
       password                            = "${var.proxy_admin_password}"
       host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
     }
+  }
 }
