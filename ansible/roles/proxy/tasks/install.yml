@@ -1,43 +1,35 @@
 ---
 - name: "Install pre-requisites"
-  package:
-    state: present
-    name: "{{ items }}"
+  apt: pkg={{ item }} state=present
   with_items:
-    - "docker.io"
-    - "curl"
+   - docker.io
+   - docker
+   - python-pip
   notify: "restart docker"
+
+- name: "Install docker-py"
+  shell: pip install docker-py
 
 - name: "Install azure-cli"
   shell: curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
-- name: "Log into ACR"
-  shell: az acr login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
-  environment:
-    ARM_CLIENT_ID: {{ $ARM_CLIENT_ID }}
-    ARM_CLIENT_SECRET: {{ $ARM_CLIENT_SECRET }}
-    ARM_TENANT_ID: {{ $ARM_TENANT_ID }}
+- name: "Log into Azure"
+  shell: az login --service-principal -u {{ ARM_CLIENT_ID }} -p {{ ARM_CLIENT_SECRET }} --tenant {{ ARM_TENANT_ID }}
 
-- name: "Pull rdo-docker-proxy image"
-  docker_image:
-    repository: hmctssandbox.azurecr.io
-    name: rdo-docker-proxy
-    source: pull
-  
+- name: "Log into ACR"
+  shell: az acr login --name hmctssandbox
+
 - name: "Run rdo-docker-proxy container"
   docker_container:
     name: rdo-docker-proxy
-    image: rdo-docker-proxy:master-6c1735c
+    image: hmctssandbox.azurecr.io/rdo-docker-proxy:master-6c1735c
     hostname: rdo-docker-proxy
     published_ports: 0.0.0.0:8080:3128
     log_driver: syslog
-    log_options: 
-      syslog-address: localhost
-      syslog-facility: daemon
-      tag: rdo-docker-proxy
 
 - name: "Container present"
   docker_container:
     name: rdo-docker-proxy
+    image: hmctssandbox.azurecr.io/rdo-docker-proxy:master-6c1735c
     state: present
   notify: "restart container"
