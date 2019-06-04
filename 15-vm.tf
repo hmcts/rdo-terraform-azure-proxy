@@ -89,6 +89,8 @@ resource "null_resource" "ansible-runs" {
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
       "hostname > ~/ansible/hosts",
       "cd ~/ansible/",
+      "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
+      "sudo az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID",
       "sudo ansible-playbook proxy.yml --extra-vars 'ARM_CLIENT_ID=$ARM_CLIENT_ID' --extra-vars 'ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET' --extra-vars 'ARM_TENANT_ID=$ARM_TENANT_ID'"
     ]
 
