@@ -88,7 +88,8 @@ resource "null_resource" "ansible-runs" {
     inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
       "hostname > ~/ansible/hosts",
-      "ansible-playbook ~/ansible/proxy.yml --extra-vars 'ARM_CLIENT_ID=$ARM_CLIENT_ID' --extra-vars 'ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET' --extra-vars 'ARM_TENANT_ID=$ARM_TENANT_ID'"
+      "cd ~/ansible/",
+      "sudo ansible-playbook proxy.yml --extra-vars 'ARM_CLIENT_ID=$ARM_CLIENT_ID' --extra-vars 'ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET' --extra-vars 'ARM_TENANT_ID=$ARM_TENANT_ID'"
     ]
 
     connection {
