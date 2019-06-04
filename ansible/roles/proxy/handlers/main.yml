@@ -5,7 +5,7 @@
     state: restarted
   listen: "restart docker"
 
-  - name: Restart container
+- name: Restart container
   docker_container:
     name: rdo-docker-proxy
     image: rdo-docker-proxy
