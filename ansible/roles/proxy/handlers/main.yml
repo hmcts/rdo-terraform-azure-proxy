@@ -7,10 +7,8 @@
 
   - name: Restart container
   docker_container:
-    name: rdo-dockker-proxy
-    image: rdo-dockker-proxy
+    name: rdo-docker-proxy
+    image: rdo-docker-proxy
     state: started
     restart: yes
-    ports:
-     - "8080:3128"
   listen: "restart container"

@@ -4,7 +4,7 @@ resource "azurerm_virtual_machine" "proxy_vm" {
   location                                = "${var.rg_location}"
   resource_group_name                     = "${var.rg_name}"
   network_interface_ids                   = ["${azurerm_network_interface.proxy_nic.id}"]
-  vm_size                                 = "Standard_B1s"
+  vm_size                                 = "Standard_B2s"
   delete_os_disk_on_termination = true
   storage_image_reference {
     publisher                             = "Canonical"
@@ -72,8 +72,9 @@ resource "null_resource" "ansible-runs" {
         "azurerm_virtual_machine_extension.ansible_extension",
         "azurerm_virtual_machine.proxy_vm"
     ]
+}
 
-  provisioner "file" {
+provisioner "file" {
     source                                = "${path.module}/ansible/"
     destination                           = "~/ansible/"
 
@@ -81,21 +82,30 @@ resource "null_resource" "ansible-runs" {
       type                                = "ssh"
       user                                = "${var.proxy_admin_username}"
       password                            = "${var.proxy_admin_password}"
-      host                                = "${azurerm_public_ip.proxy_pip.*.ip_address}"
+      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
     }
   }
 
-  provisioner "remote-exec" {
+provisioner "local-exec" {
+    command = <<EOF
+      git clone https://github.com/hmcts/rdo-terraform-azure-proxy.git;
+      cd rdo-terraform-azure-proxy/ansible;
+      sleep 30;
+      az acr login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID --name $ACR_NAME
+      ansible-playbook ${path.module}/ansible/roles/proxy/tasks/main.yml --extra-vars --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"'
+      EOF
+  }
+
+provisioner "remote-exec" {
     inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
-      "ansible-playbook ~/ansible/roles/proxy/tasks/main.yml"
+      "ansible-playbook ~/ansible/roles/proxy/tasks/main.yml --extra-vars 'ARM_CLIENT_ID=$ARM_CLIENT_ID' --extra-vars 'ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET' --extra-vars 'ARM_TENANT_ID=$ARM_TENANT_ID'"
     ]
 
     connection {
       type                                = "ssh"
       user                                = "${var.proxy_admin_username}"
       password                            = "${var.proxy_admin_password}"
-      host                                = "${azurerm_public_ip.proxy_pip.*.ip_address}"
+      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
     }
-  }
 }
