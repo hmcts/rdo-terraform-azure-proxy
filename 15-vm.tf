@@ -83,17 +83,7 @@ resource "null_resource" "ansible-runs" {
       host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
     }
   }
-
-  provisioner "local-exec" {
-    command = <<EOF
-      git clone https://github.com/hmcts/rdo-terraform-azure-proxy.git;
-      cd rdo-terraform-azure-proxy/ansible;
-      sleep 30;
-      az acr login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID --name $ACR_NAME
-      ansible-playbook ${path.module}/ansible/roles/proxy/tasks/main.yml --extra-vars --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"'
-      EOF
-  }
-
+  
   provisioner "remote-exec" {
     inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
