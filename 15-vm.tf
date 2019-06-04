@@ -83,11 +83,11 @@ resource "null_resource" "ansible-runs" {
       host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
     }
   }
-  
+
   provisioner "remote-exec" {
     inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
-      "ansible-playbook ~/ansible/roles/proxy/tasks/main.yml --extra-vars 'ARM_CLIENT_ID=$ARM_CLIENT_ID' --extra-vars 'ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET' --extra-vars 'ARM_TENANT_ID=$ARM_TENANT_ID'"
+      "ansible-playbook ~/ansible/proxy.yml --extra-vars 'ARM_CLIENT_ID=$ARM_CLIENT_ID' --extra-vars 'ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET' --extra-vars 'ARM_TENANT_ID=$ARM_TENANT_ID'"
     ]
 
     connection {
