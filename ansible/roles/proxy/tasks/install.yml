@@ -20,6 +20,9 @@
     hostname: rdo-docker-proxy
     published_ports: 0.0.0.0:8080:3128
     log_driver: syslog
+    volumes:
+     - /etc/rdo-docker-proxy/var/log:/var/log
+     - /etc/rdo-docker-proxy/etc/squid:/etc/squid
 
 - name: "Container present"
   docker_container:
