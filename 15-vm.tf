@@ -88,7 +88,7 @@ resource "null_resource" "ansible-runs" {
     inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
       "mkdir -p /etc/rdo-docker-proxy/squid",
-      "mkdir -p /var/log/rdo-docker-proxy/squid"
+      "mkdir -p /var/log/rdo-docker-proxy/squid",
       "hostname > ~/ansible/hosts",
       "cd ~/ansible/",
       "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
