@@ -74,7 +74,7 @@ resource "null_resource" "ansible-runs" {
     ]
   provisioner "file" {
     source                                = "${path.module}/ansible/"
-    destination                           = "~/ansible/"
+    destination                           = "~/rdo-docker-proxy/"
 
     connection {
       type                                = "ssh"
@@ -89,11 +89,17 @@ resource "null_resource" "ansible-runs" {
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
       "sudo mkdir -p /etc/rdo-docker-proxy/squid",
       "sudo mkdir -p /var/log/rdo-docker-proxy/squid",
-      "hostname > ~/ansible/hosts",
-      "cd ~/ansible/",
+      "sudo hostname > /etc/ansible/hosts",
       "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
       "sudo az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID",
-      "sudo ansible-playbook proxy.yml"
+      "az vm assign -g dmz -n proxy-sbox --identities '/subscriptions/bf308a5c-0624-4334-8ff8-8dca9fd43783/resourcegroups/dmz/providers/Microsoft.ManagedIdentity/userAssignedIdentities/isher-has-mi'",
+      "sudo export token=`curl -s 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https%3A%2F%2Fvault.azure.net' -H Metadata:true | cut -d, -f1 | cut -d: -f2 | sed 's/"//g'`",
+      "sudo export gh_user=`curl -s https://infra-ops-kv.vault.azure.net/secrets/github-devops-access-credentials?api-version=2016-10-01 -H \"Authorization: Bearer $token\" | cut -d, -f1 | cut -d: -f2 | sed 's/\"//g' | cut -d/ -f1`",
+      "sudo export gh_token=`curl -s https://infra-ops-kv.vault.azure.net/secrets/github-devops-personal-access-token?api-version=2016-10-01 -H \"Authorization: Bearer $token\" | cut -d, -f1 | cut -d: -f2 | sed 's/\"//g'`",
+      "sudo git clone https://${gh_username}:${gh_token}@github.com/hmcts/rdo-ansible-squid.git",
+      "cd rdo-ansible-squid",
+      "sudo ansible-playbook ~/rdo-ansible-squid/squid.yml",
+      "sudo ansible-playbook ~/rdo-docker-proxy/proxy.yml"
     ]
 
     connection {
