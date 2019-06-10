@@ -73,7 +73,7 @@ resource "null_resource" "ansible-runs" {
         "azurerm_virtual_machine.proxy_vm"
     ]
   provisioner "file" {
-    source                                = "${path.module}/initialise.sh"
+    source                                = "${path.module}/ansible/"
     destination                           = "~/rdo-docker-proxy/"
 
     connection {
@@ -87,7 +87,7 @@ resource "null_resource" "ansible-runs" {
   provisioner "remote-exec" {
     inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
-      "sudo ~/rdo-docker-proxy/initialise.sh $ARM_CLIENT_ID $ARM_CLIENT_SECRET $ARM_TENANT_ID"
+      "ansible-playbook ~/rdo-docker-proxy/proxy.yml"
     ]
 
     connection {

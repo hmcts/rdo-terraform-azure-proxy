@@ -16,5 +16,5 @@ gh_token=`curl -s https://infra-ops-kv.vault.azure.net/secrets/github-devops-per
 git clone https://${gh_username}:${gh_token}@github.com/hmcts/rdo-ansible-squid.git
 ansible-playbook ~/rdo-ansible-squid/squid.yml
 
-git clone https://${gh_username}:${gh_token}@github.com/hmcts/rdo-docker-proxy.git
-ansible-playbook ~/rdo-docker-proxy/proxy.yml
+#git clone https://${gh_username}:${gh_token}@github.com/hmcts/rdo-docker-proxy.git
+#ansible-playbook ~/rdo-docker-proxy/proxy.yml
