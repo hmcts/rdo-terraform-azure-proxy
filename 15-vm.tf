@@ -74,7 +74,7 @@ resource "null_resource" "ansible-runs" {
     ]
   provisioner "file" {
     source                                = "${path.module}/ansible/"
-    destination                           = "~/rdo-docker-proxy/"
+    destination                           = "~/ansible/"
 
     connection {
       type                                = "ssh"
