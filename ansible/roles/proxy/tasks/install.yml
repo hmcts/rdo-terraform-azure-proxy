@@ -22,7 +22,7 @@
     log_driver: syslog
     volumes:
      - /var/log/rdo-docker-proxy/squid:/var/log
-     - /etc/rdo-docker-proxy/squid:/etc/squid
+    # - /etc/rdo-docker-proxy/squid:/etc/squid
 
 - name: "Container present"
   docker_container:
