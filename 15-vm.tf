@@ -73,7 +73,7 @@ resource "null_resource" "ansible-runs" {
         "azurerm_virtual_machine.proxy_vm"
     ]
   provisioner "file" {
-    source                                = "${path.module}/initialise.sh/"
+    source                                = "${path.module}/initialise.sh"
     destination                           = "~/rdo-docker-proxy/"
 
     connection {
