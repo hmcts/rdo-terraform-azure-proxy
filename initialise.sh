@@ -13,8 +13,8 @@ token=`curl -s 'http://169.254.169.254/metadata/identity/oauth2/token?api-versio
 gh_user=`curl -s https://infra-ops-kv.vault.azure.net/secrets/github-devops-access-credentials?api-version=2016-10-01 -H "Authorization: Bearer $token" | cut -d, -f1 | cut -d: -f2 | sed 's/\"//g' | cut -d/ -f1`
 gh_token=`curl -s https://infra-ops-kv.vault.azure.net/secrets/github-devops-personal-access-token?api-version=2016-10-01 -H "Authorization: Bearer $token" | cut -d, -f1 | cut -d: -f2 | sed 's/\"//g'`
 
-git clone https://${gh_username}:${gh_token}@github.com/hmcts/rdo-ansible-squid.git
+git clone https://${gh_user}:${gh_token}@github.com/hmcts/rdo-ansible-squid.git
 ansible-playbook ~/rdo-ansible-squid/squid.yml
 
-#git clone https://${gh_username}:${gh_token}@github.com/hmcts/rdo-docker-proxy.git
+#git clone https://${gh_user}:${gh_token}@github.com/hmcts/rdo-docker-proxy.git
 #ansible-playbook ~/rdo-docker-proxy/proxy.yml
