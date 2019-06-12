@@ -87,6 +87,7 @@ resource "null_resource" "ansible-runs" {
   provisioner "remote-exec" {
     inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
+      "sudo hostname > /etc/ansible/hosts"
       "ansible-playbook ~/ansible/proxy.yml"
     ]
 
