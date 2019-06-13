@@ -1,4 +1,7 @@
 ---
+- name: Include vars
+  include_vars:
+    dir: vars
 
 - name: process url whitelist template
   template:
