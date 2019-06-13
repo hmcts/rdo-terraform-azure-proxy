@@ -20,7 +20,14 @@
     group: root
     mode: 0644
     backup: yes
+
+- name: "Container present"
+  docker_container:
+    name: rdo-docker-proxy
+    image: hmctssandbox.azurecr.io/rdo-docker-proxy:master-e3db3c9
+    state: present
   notify: "restart container"
+
 
 
 
