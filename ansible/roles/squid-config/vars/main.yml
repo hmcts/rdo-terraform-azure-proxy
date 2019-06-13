@@ -1,0 +1,9 @@
+squid_package: squid
+squid_daemon: squid
+squid_path: /etc/rdo-docker-proxy/squid
+squid_conf: /etc/rdo-docker-proxy/squid/squid.conf
+
+squid_diskcache: ''
+#squid_diskcache: '' # Disables cache
+
+squid_coredumpdir: '/var/spool/squid'

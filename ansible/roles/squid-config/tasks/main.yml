@@ -1,0 +1,26 @@
+---
+
+- name: process url whitelist template
+  template:
+    src: urls.txt.j2
+    dest: /etc/rdo-docker-proxy/squid/{{ item.name }}-urls.txt
+    group: root
+    mode: 0644
+    backup: yes
+  with_items:
+    - { name: 'dev', whitelist: "{{ squid_dev_urls }} + {{ squid_prod_urls }}" }
+    - { name: 'prod', whitelist: "{{ squid_prod_urls }}" }
+    - { name: 'perf', whitelist: "{{ squid_performancetesting_urls }}" }
+
+- name: copy template
+  template:
+    src: squid.conf.j2
+    dest: "{{ squid_conf }}"
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify: "restart container"
+
+
+

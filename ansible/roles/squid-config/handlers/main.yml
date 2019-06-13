@@ -1,0 +1,14 @@
+---
+- name: verify squid config
+  command: squid -k parse -d0
+
+- name: restart squid
+  service: name={{ squid_daemon }} state=restarted enabled=yes
+
+- name: Restart container
+  docker_container:
+    name: rdo-docker-proxy
+    image: rdo-docker-proxy
+    state: started
+    restart: yes
+  listen: "restart container"

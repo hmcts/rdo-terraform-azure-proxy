@@ -4,8 +4,7 @@ mkdir -p /etc/rdo-docker-proxy/squid
 mkdir -p /var/log/rdo-docker-proxy/squid
 hostname > /etc/ansible/hosts
 
-curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-az login --service-principal -u $1 -p $2 --tenant $3
+
 
 az vm assign -g dmz -n proxy-sbox --identities '/subscriptions/bf308a5c-0624-4334-8ff8-8dca9fd43783/resourcegroups/dmz/providers/Microsoft.ManagedIdentity/userAssignedIdentities/isher-has-mi'
 

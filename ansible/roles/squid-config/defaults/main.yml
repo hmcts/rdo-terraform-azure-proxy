@@ -1,0 +1,42 @@
+---
+squid_sslports:
+  - 443
+
+squid_safeports:
+  - 443
+  - 80
+
+squid_port: 8080
+#squid_outgoing_adress: ''
+squid_visible_hostname: 'rdo-docker-proxy'
+
+squid_acls:
+  ### default ###
+  - { name: 'CONNECT', type: 'method', arg: 'CONNECT' }
+  ### default ###
+
+squid_http_access:
+  ### default ###
+  - { perm: 'deny', aclname: '!Safe_ports' }
+  - { perm: 'deny', aclname: 'CONNECT !SSL_ports' }
+  - { perm: 'allow', aclname: 'localhost manager' }
+  - { perm: 'deny', aclname: 'manager' }
+  - { perm: 'deny', aclname: 'all' }
+    #- { perm: 'allow', aclname: 'localnet' }
+    #- { perm: 'allow', aclname: 'localhost' }
+  ### default ###
+squid_prod_urls:
+  - "my.production.site1.com"
+  - "my.production.site2.com"
+
+
+# dev urls automatically include prod_urls, so these are just ones that are needed in addition to prod_urls
+squid_dev_urls:
+  - "my.dev.site1.com"
+  - "my.dev.site2.com"
+
+squid_performancetesting_urls:
+  - "my.perfomancetesting.site1.com"
+squid_test_urls:
+  - "https://my.production.site1.com/health"
+  - "https://my.production.site2.com/health"

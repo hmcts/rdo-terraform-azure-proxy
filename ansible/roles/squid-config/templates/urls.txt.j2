@@ -1,0 +1,6 @@
+# Managed by Ansible.
+{% if item.whitelist is defined %}
+{% for url_inst in item.whitelist %}
+{{ url_inst }}
+{% endfor %}
+{% endif %}
