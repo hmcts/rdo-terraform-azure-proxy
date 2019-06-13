@@ -26,6 +26,16 @@ resource "azurerm_virtual_machine" "proxy_vm" {
     admin_password                        = "${var.proxy_admin_password}"
   }
 
+  os_profile_linux_config {
+    
+    disable_password_authentication = true
+
+    ssh_keys {
+      path     = "/home/${var.proxy_admin_username}/.ssh/authorized_keys"
+      key_data = "${var.proxy_admin_ssh_public_key}"
+    }
+}
+
 provisioner "remote-exec" {
       inline = [
         "mkdir ~/ansible"
