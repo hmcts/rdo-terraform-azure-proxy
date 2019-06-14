@@ -30,11 +30,11 @@ resource "azurerm_virtual_machine" "proxy_vm" {
       disable_password_authentication       = false
       ssh_keys {
       path     = "/home/${var.proxy_admin_username}/.ssh/authorized_keys"
-      key_data = "${var.proxy_admin_ssh_public_key}"
+      key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLv/CBfl16lq6ehzT0zmFRJqB370q4FiV5e4Q7mOsH6qV6RN01Lhvsme7LhEwz/FzJBQKxYrs2NNh2uMe8apwrgBGOubVjP5FLrkKq3vyeF8FzuNIngqxWu8WiTSJF/vGfV+VDFEDo/HJL60BhH1hsAP3YToFOo2gnA/ndKulBYuqqWYX/BqvFrIwfGb32AcrarvuS+3JRMobehuhdYx6TNFo3Nv961VtU5XajVDxLIJZAT35fKcGRHNNMCuOsabshycY06u8wsFZSON6nLiRUfWwQGeMYm8G5c4N5HvyWE2Rf6AQWJiwojTcP5M12umbD7gmZ7k+r7+EOoVLFEPIZ"
     }
-}
+  }
 
-provisioner "remote-exec" {
+  provisioner "remote-exec" {
       inline = [
         "mkdir ~/ansible"
       ]
