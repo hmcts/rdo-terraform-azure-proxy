@@ -89,6 +89,10 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "remote-exec" {
     inline = [
+      "printenv"
+      "echo $ARM_CLIENT_ID"
+      "echo $ARM_CLIENT_SECRET"
+      "echo $ARM_TENANT_ID "
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
       "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
       "sleep 30",
