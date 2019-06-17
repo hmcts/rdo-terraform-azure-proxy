@@ -89,10 +89,9 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "remote-exec" {
     inline = [
-      "echo printenv",
-      "echo $dmz-sp-app-id",
-      "echo $dmz-sp-client-secret",
-      "echo $dmz-sp-tenant-id",
+      "echo $$dmz-sp-app-id",
+      "echo $$dmz-sp-client-secret",
+      "echo $$dmz-sp-tenant-id",
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
       "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
       "sleep 30",
