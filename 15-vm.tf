@@ -96,7 +96,7 @@ resource "null_resource" "ansible-runs" {
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
       "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
       "sleep 30",
-      "echo sudo az login --service-principal -u $dmz-sp-app-id -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID",
+      "echo sudo az login --service-principal --username $dmz-sp-app-id --password $dmz-sp-client-secret --tenant $dmz-sp-tenant-id",
       "hostname > ~/ansible/hosts",
       "cd ~/ansible",
       "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
