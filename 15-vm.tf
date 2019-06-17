@@ -89,13 +89,13 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "remote-exec" {
     inline = [
-      "echo $$dmz-sp-app-id",
-      "echo $$dmz-sp-client-secret",
-      "echo $$dmz-sp-tenant-id",
+      "echo $(dmz-sp-app-id)",
+      "echo $(dmz-sp-client-secret)",
+      "echo $(dmz-sp-tenant-id)",
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
       "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
       "sleep 30",
-      "echo sudo az login --service-principal --username $dmz-sp-app-id --password $dmz-sp-client-secret --tenant $sp-tenant-id",
+      "echo sudo az login --service-principal --username $(dmz-sp-app-id) --password $(dmz-sp-client-secret) --tenant $(dmz-sp-tenant-id)",
       "hostname > ~/ansible/hosts",
       "cd ~/ansible",
       "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
