@@ -35,3 +35,7 @@ variable "proxy_subnet_vip" {
 variable "vnet_name" {
     description = ""    
 }
+
+variable "ARM_TENANT_ID" {
+  description                             = ""
+}
