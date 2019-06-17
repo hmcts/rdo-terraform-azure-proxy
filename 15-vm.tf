@@ -66,7 +66,65 @@ SETTINGS
 }
 
 
-resource "null_resource" "ansible-runs" {
+#resource "null_resource" "ansible-runs" {
+#    triggers = {
+#      always_run = "${timestamp()}"
+#    }
+
+#    depends_on = [
+#        "azurerm_virtual_machine_extension.ansible_extension",
+#        "azurerm_virtual_machine.proxy_vm"
+#    ]
+#  provisioner "file" {
+#    source                                = "${path.module}/ansible/"
+#    destination                           = "~/ansible/"
+
+#    connection {
+#      type                                = "ssh"
+#      user                                = "${var.proxy_admin_username}"
+#      password                            = "${var.proxy_admin_password}"
+#      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
+#    }
+#  }
+
+ # provisioner "remote-exec" {
+ #   inline = [
+ #     #"ansible-galaxy install -r ~/ansible/requirements.yml",
+ #     "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
+ #     "sleep 30",
+ #     "echo sudo az login --service-principal --username $(ARM_CLIENT_ID) --password $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)",
+ #     "hostname > ~/ansible/hosts",
+ #     "cd ~/ansible",
+ #     "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
+ #   ]
+
+ #   connection {
+ #     type                                = "ssh"
+ #     user                                = "${var.proxy_admin_username}"
+ #     password                            = "${var.proxy_admin_password}"
+ #     host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
+ #   }
+ # }
+#}
+
+data "template_file" "script" {
+    template = "${file("${path.module}/template/script.tpl")}"
+
+    depends_on = [
+        "azurerm_virtual_machine.proxy_vm",
+        "azurerm_virtual_machine_extension.ansible_extension"
+        
+    ]
+
+    vars {
+        CLIENT_ID = "$(ARM_CLIENT_ID)" 
+        CLIENT_SECRET = "$(ARM_CLIENT_SECRET)"
+        TENANT_ID = "$(ARM_TENANT_ID)"
+    }
+}
+
+resource "null_resource" "update_script" {
+
     triggers = {
       always_run = "${timestamp()}"
     }
@@ -87,22 +145,15 @@ resource "null_resource" "ansible-runs" {
     }
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      #"ansible-galaxy install -r ~/ansible/requirements.yml",
-      "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
-      "sleep 30",
-      "echo sudo az login --service-principal --username $(TF_VAR_subscription_id) --password $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)",
-      "hostname > ~/ansible/hosts",
-      "cd ~/ansible",
-      "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
-    ]
-
-    connection {
-      type                                = "ssh"
-      user                                = "${var.proxy_admin_username}"
-      password                            = "${var.proxy_admin_password}"
-      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
+    triggers {
+        template = "${data.template_file.script.rendered}"
     }
-  }
+
+    provisioner "remote-exec" {
+      inline = [
+        "echo '${data.template_file.script.rendered}' > ${path.module}/script.sh",
+        "chmod 755 ${path.module}/script.sh",
+        "${path.module}/script.sh"
+      ]
+    }
 }
