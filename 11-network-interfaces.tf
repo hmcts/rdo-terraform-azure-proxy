@@ -25,6 +25,6 @@ resource "azurerm_network_interface" "proxy_nic" {
     name                                    = "${var.proxy_vm_name}-ip"
     subnet_id                               = "${var.proxy_subnet_vip}"
     private_ip_address_allocation           = "Dynamic"
-    public_ip_address_id                    = "${element(azurerm_public_ip.proxy_pip.*.id, count.index)}"
+    public_ip_address_id                    = "${azurerm_public_ip.proxy_pip.*.id}"
   }
 }
