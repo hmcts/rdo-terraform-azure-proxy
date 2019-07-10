@@ -84,7 +84,7 @@ resource "null_resource" "ansible-runs" {
       type                                = "ssh"
       user                                = "${var.proxy_admin_username}"
       password                            = "${var.proxy_admin_password}"
-      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
+      host                                = "${azurerm_public_ip.proxy_pip.*.ip_address}"
     }
   }
 
