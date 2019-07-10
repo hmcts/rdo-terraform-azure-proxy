@@ -13,7 +13,6 @@ resource "azurerm_public_ip" "proxy_pip" {
    location                                 = "${var.rg_location}"
    resource_group_name                      = "${var.rg_name}"
    allocation_method                        = "Static"
-   count                                    = 1
  }
 
 resource "azurerm_network_interface" "proxy_nic" {
