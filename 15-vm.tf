@@ -42,6 +42,7 @@ resource "azurerm_virtual_machine" "proxy_vm" {
       type                                = "ssh"
       user                                = "${var.proxy_admin_username}"
       password                            = "${var.proxy_admin_password}"
+      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
       }
 }
 
