@@ -12,7 +12,7 @@ resource "azurerm_public_ip" "proxy_pip" {
    name                                     = "${var.proxy_vm_name}-pip"
    location                                 = "${var.rg_location}"
    resource_group_name                      = "${var.rg_name}"
-   public_ip_address_allocation             = "Static"
+   allocation_method                        = "Static"
    count                                    = 1
  }
 
