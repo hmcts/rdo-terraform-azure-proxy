@@ -88,23 +88,23 @@ resource "null_resource" "ansible-runs" {
     }
   }
 
-  provisioner "remote-exec" {
-    inline = [
+  #provisioner "remote-exec" {
+  #  inline = [
       #"ansible-galaxy install -r ~/ansible/requirements.yml",
-      "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
-      "sleep 30",
+  #    "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
+  #    "sleep 30",
       #"echo sudo az login --service-principal --username $(ARM_CLIENT_ID) --password $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)",
-      "hostname > ~/ansible/hosts",
-      "cd ~/ansible",
-      "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
-    ]
+  #    "hostname > ~/ansible/hosts",
+  #    "cd ~/ansible",
+  #    "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
+  #  ]
 
-    connection {
-      type                                = "ssh"
-      user                                = "${var.proxy_admin_username}"
-      password                            = "${var.proxy_admin_password}"
-      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
-    }
-  }
+  #  connection {
+  #    type                                = "ssh"
+  #    user                                = "${var.proxy_admin_username}"
+  #    password                            = "${var.proxy_admin_password}"
+  #    host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
+  #  }
+  #}
 }
 
