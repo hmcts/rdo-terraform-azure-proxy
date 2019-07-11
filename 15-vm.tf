@@ -92,10 +92,6 @@ resource "null_resource" "ansible-runs" {
     inline = [
       "echo 'ls ansible dir'",
       "ls -al ~/ansible",
-      "ansible-galaxy install -r ~/ansible/requirements.yml",
-  #    "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
-  #    "sleep 30",
-      #"echo sudo az login --service-principal --username $(ARM_CLIENT_ID) --password $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)",
       "hostname > ~/ansible/hosts",
       "cd ~/ansible",
       "echo 'cat hosts file'",
