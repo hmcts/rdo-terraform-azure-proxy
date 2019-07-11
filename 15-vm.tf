@@ -90,6 +90,8 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "remote-exec" {
     inline = [
+      "echo 'ls ansible dir'",
+      "ls -al ~/ansible",
       "ansible-galaxy install -r ~/ansible/requirements.yml",
   #    "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
   #    "sleep 30",
