@@ -98,6 +98,8 @@ resource "null_resource" "ansible-runs" {
       #"echo sudo az login --service-principal --username $(ARM_CLIENT_ID) --password $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)",
       "hostname > ~/ansible/hosts",
       "cd ~/ansible",
+      "echo 'cat hosts file'",
+      "cat ~/ansible/hosts",
       "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
     ]
 
