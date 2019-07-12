@@ -90,12 +90,8 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "remote-exec" {
     inline = [
-      #"curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
-      #"az --version",
-      "echo ${var.subscription_id}",
-      "echo ${var.subscription_id}",
-      "echo ${var.subscription_id}",
-      "echo ${var.subscription_id}",
+      "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
+      "az --version"
       #"echo sudo az login --service-principal --username $(ARM_CLIENT_ID) --password $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)",
       #"hostname > ~/ansible/hosts",
       #"cd ~/ansible",
