@@ -92,7 +92,7 @@ resource "null_resource" "ansible-runs" {
     inline = [
       "hostname > ~/ansible/hosts",
       "cd ~/ansible",
-      "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts -e TENANT_ID=${var.TENANT_ID} -e CLIENT_ID=${var.CLIENT_ID} -e CLIENT_SECRET=${var.CLIENT_SECRET}",
+      "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts -e arm_tennat_id=${var.arm_tennat_id} -e arm_client_id=${var.arm_client_id} -e arm_client_secret=${var.arm_client_secret}",
     ]
 
     connection {
