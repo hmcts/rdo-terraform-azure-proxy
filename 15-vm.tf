@@ -94,9 +94,9 @@ resource "null_resource" "ansible-runs" {
       "az --version",
       "echo ${var.subscription_id}",
       "echo sudo az login --service-principal --username $(ARM_CLIENT_ID) --password $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)",
-      "hostname > ~/ansible/hosts",
-      "cd ~/ansible",
-      "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
+      #"hostname > ~/ansible/hosts",
+      #"cd ~/ansible",
+      #"sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
     ]
 
     connection {
