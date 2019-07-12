@@ -2,3 +2,6 @@
 
 - name: "Testing"
   shell: echo hello
+
+- name: "Az Login"
+  shell: az login --service-principal -u arm_client_id -p arm_client_secret --tenant arm_tenant_id
