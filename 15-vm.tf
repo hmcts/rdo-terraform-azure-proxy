@@ -90,12 +90,9 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "remote-exec" {
     inline = [
-      "echo 'ls ansible dir'",
-      "ls -al ~/ansible",
+      "curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash",
       "hostname > ~/ansible/hosts",
       "cd ~/ansible",
-      "echo 'cat hosts file'",
-      "cat ~/ansible/hosts",
       "sudo ansible-playbook ~/ansible/proxy.yml -i ~/ansible/hosts"
     ]
 
