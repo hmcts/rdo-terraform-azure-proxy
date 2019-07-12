@@ -10,6 +10,12 @@
 - name: "Install docker-py"
   shell: pip install docker-py
 
+- name: "Install AZ Cli"
+  shell: pip install azure-cli
+
+- name: "Install AZ Cli ACR"
+  shell: pip install azure-cli-acr
+
 - name: "Log into ACR"
   shell: az acr login --name hmctssandbox
 
