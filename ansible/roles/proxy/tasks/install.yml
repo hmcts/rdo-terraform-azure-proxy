@@ -10,11 +10,8 @@
 - name: "Install docker-py"
   shell: pip install docker-py
 
-- name: "Install AZ Cli"
-  shell: pip install azure-cli
-
-- name: "Install AZ Cli ACR"
-  shell: pip install azure-cli-acr
+- name: "Az Login"
+  shell: az login --service-principal -u "{{ arm_client_id }}" -p "{{ arm_client_secret }}" --tenant "{{ arm_tenant_id }}"
 
 - name: "Log into ACR"
   shell: az acr login --name hmctssandbox
