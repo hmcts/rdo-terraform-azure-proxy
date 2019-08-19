@@ -35,6 +35,7 @@ squid_prod_urls:
 squid_dev_urls:
   - "my.dev.site1.com"
   - "my.dev.site2.com"
+  - "test.test.com"
 
 squid_performancetesting_urls:
   - "my.perfomancetesting.site1.com"
