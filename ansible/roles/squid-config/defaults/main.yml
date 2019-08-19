@@ -20,7 +20,7 @@ squid_http_access:
   - { perm: 'deny', aclname: '!Safe_ports' }
   - { perm: 'deny', aclname: 'CONNECT !SSL_ports' }
   - { perm: 'allow', aclname: 'localhost manager' }
-  - { perm: 'allow', aclname: "{{ sub_hub_transit_public }}" }
+  - { perm: 'allow', aclname: "{{ palo_subnet }}" }
   - { perm: 'allow', aclname: 'local_net' }
   - { perm: 'deny', aclname: 'manager' }
   - { perm: 'deny', aclname: 'all' }
