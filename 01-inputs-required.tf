@@ -40,3 +40,7 @@ variable "proxy_subnet_vip" {
 variable "vnet_name" {
     description = ""    
 }
+
+variable "palo_subnet" {
+  description = ""
+}
