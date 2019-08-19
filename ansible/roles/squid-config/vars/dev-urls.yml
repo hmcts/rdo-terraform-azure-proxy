@@ -1,2 +1,4 @@
 squid_dev_urls:
  - ifconfig.io
+ - test.test.com
+ - anothertest.test.com
