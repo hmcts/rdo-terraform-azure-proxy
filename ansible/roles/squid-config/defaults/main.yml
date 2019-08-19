@@ -20,9 +20,10 @@ squid_http_access:
   - { perm: 'deny', aclname: '!Safe_ports' }
   - { perm: 'deny', aclname: 'CONNECT !SSL_ports' }
   - { perm: 'allow', aclname: 'localhost manager' }
+  - { perm: 'allow', aclname: "{{ sub-hub-transit-public }}" }
+  - { perm: 'allow', aclname: 'local_net' }
   - { perm: 'deny', aclname: 'manager' }
   - { perm: 'deny', aclname: 'all' }
-    #- { perm: 'allow', aclname: 'localnet' }
     #- { perm: 'allow', aclname: 'localhost' }
   ### default ###
 squid_prod_urls:

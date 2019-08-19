@@ -13,8 +13,9 @@
 - name: "Pip Az Cli Install"
   shell: pip install azure-cli
 
-- name: "Install azure-cli"
-  shell: curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+# Testing ig Pip AZ works without this
+#- name: "Install azure-cli"
+#  shell: curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 - name: "Az Login"
   shell: az login --service-principal -u "{{ arm_client_id }}" -p "{{ arm_client_secret }}" --tenant "{{ arm_tenant_id }}"
