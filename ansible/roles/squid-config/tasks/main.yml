@@ -30,6 +30,7 @@
     image: hmctssandbox.azurecr.io/rdo-docker-proxy:master-e3db3c9
     state: started
     restart: yes
+    restart_policy: always
 
 
 
