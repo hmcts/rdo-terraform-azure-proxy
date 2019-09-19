@@ -10,6 +10,9 @@ squid_port: 8080
 #squid_outgoing_adress: ''
 squid_visible_hostname: 'rdo-docker-proxy'
 
+squid_localnets:
+  - "{{ palo_subnet }}"
+
 squid_acls:
   ### default ###
   - { name: 'CONNECT', type: 'method', arg: 'CONNECT' }
