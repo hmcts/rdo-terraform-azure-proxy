@@ -24,13 +24,13 @@
     mode: 0644
     backup: yes
 
-- name: Restart a container
-  docker_container:
-    name: rdo-docker-proxy
-    image: hmctssandbox.azurecr.io/rdo-docker-proxy:master-e3db3c9
-    hostname: rdo-docker-proxy
-    published_ports: 0.0.0.0:8080:8080
-    state: started
-    restart: yes
-    restart_policy: always
+#- name: Restart a container
+#  docker_container:
+#    name: rdo-docker-proxy
+#    image: hmctssandbox.azurecr.io/rdo-docker-proxy:master-e3db3c9
+#    hostname: rdo-docker-proxy
+#    published_ports: 0.0.0.0:8080:8080
+#    state: started
+#    restart: yes
+#    restart_policy: always
 
