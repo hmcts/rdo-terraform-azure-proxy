@@ -11,5 +11,5 @@
     image: rdo-docker-proxy
     state: started
     restart: yes
-    restart_policy: always
+    #restart_policy: always
   listen: "restart container"
