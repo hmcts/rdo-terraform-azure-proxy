@@ -10,6 +10,9 @@ squid_port: 8080
 #squid_outgoing_adress: ''
 squid_visible_hostname: 'rdo-docker-proxy'
 
+squid_localnets:
+  - "{{ palo_subnet }}"
+
 squid_acls:
   ### default ###
   - { name: 'CONNECT', type: 'method', arg: 'CONNECT' }
@@ -20,8 +23,8 @@ squid_http_access:
   - { perm: 'deny', aclname: '!Safe_ports' }
   - { perm: 'deny', aclname: 'CONNECT !SSL_ports' }
   - { perm: 'allow', aclname: 'localhost manager' }
-  - { perm: 'allow', aclname: "{{ palo_subnet }}" }
-  - { perm: 'allow', aclname: 'local_net' }
+  #- { perm: 'allow', aclname: "{{ palo_subnet }}" }
+  - { perm: 'allow', aclname: 'localnet' }
   - { perm: 'deny', aclname: 'manager' }
   - { perm: 'deny', aclname: 'all' }
     #- { perm: 'allow', aclname: 'localhost' }
