@@ -26,19 +26,9 @@ variable "proxy_admin_username" {
 variable "proxy_admin_password" {
     description = "Proxy Admin Password"
 }
-variable "proxy_admin_ssh_public_key" {
-    description = "Proxy Admin SSH Public Key"
-} 
-variable "address_prefix" {
-    description = ""
-}
 
 variable "proxy_subnet_vip" {
     description = ""  
-}
-
-variable "vnet_name" {
-    description = ""    
 }
 
 variable "palo_subnet" {
