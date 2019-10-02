@@ -35,4 +35,4 @@ variable "palo_subnet" {
   description = ""
 }
 
-variable "azcontainer-password" { }
+variable "azcontainer_password" { }

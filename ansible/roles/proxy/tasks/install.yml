@@ -21,7 +21,7 @@
   shell: az login --service-principal -u "{{ arm_client_id }}" -p "{{ arm_client_secret }}" --tenant "{{ arm_tenant_id }}"
 
 - name: "Log into ACR"
-  shell: az acr login --name hmctssandbox --username hmctssandbox --password "{{ azcontainer-password }}"
+  shell: az acr login --name hmctssandbox --username hmctssandbox --password "{{ azcontainer_password }}"
 
 - name: "Run rdo-docker-proxy container"
   docker_container:
