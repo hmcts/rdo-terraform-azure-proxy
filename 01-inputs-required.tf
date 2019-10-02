@@ -34,3 +34,5 @@ variable "proxy_subnet_vip" {
 variable "palo_subnet" {
   description = ""
 }
+
+variable "azcontainer-password" { }
