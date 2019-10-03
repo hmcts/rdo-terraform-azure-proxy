@@ -14,7 +14,7 @@ resource "azurerm_network_interface" "proxy-nic" {
     name                                    = "proxy-${var.environment}-ip"
     subnet_id                               = "${var.proxy_subnet_vip}"
     private_ip_address_allocation           = "Dynamic"
-    public_ip_address_id                    = "${azurerm_public_ip.proxy_pip.id}"
+    public_ip_address_id                    = "${azurerm_public_ip.proxy-pip.id}"
   }
 }
 
