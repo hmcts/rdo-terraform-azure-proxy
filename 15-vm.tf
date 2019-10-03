@@ -1,9 +1,9 @@
 
 resource "azurerm_virtual_machine" "proxy_vm" {
-  name                                    = "${var.proxy_vm_name}"
+  name                                    = "proxy-${var.environment}"
   location                                = "${var.rg_location}"
   resource_group_name                     = "${var.rg_name}"
-  network_interface_ids                   = ["${azurerm_network_interface.proxy_nic.id}"]
+  network_interface_ids                   = ["${azurerm_network_interface.proxy-nic.id}"]
   vm_size                                 = "Standard_B2s"
   delete_os_disk_on_termination = true
   storage_image_reference {
@@ -14,14 +14,14 @@ resource "azurerm_virtual_machine" "proxy_vm" {
   }
 
   storage_os_disk {
-    name                                  = "${var.proxy_vm_name}-os"
+    name                                  = "proxy-${var.environment}-os"
     caching                               = "ReadWrite"
     create_option                         = "FromImage"
     managed_disk_type                     = "Standard_LRS"
   }
 
   os_profile {
-    computer_name                         = "${var.proxy_vm_name}"
+    computer_name                         = "proxy-${var.environment}"
     admin_username                        = "${var.proxy_admin_username}"
     admin_password                        = "${var.proxy_admin_password}"
   }
@@ -42,7 +42,7 @@ resource "azurerm_virtual_machine" "proxy_vm" {
       type                                = "ssh"
       user                                = "${var.proxy_admin_username}"
       password                            = "${var.proxy_admin_password}"
-      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
+      host                                = "${azurerm_public_ip.proxy-pip.ip_address}"
       }
 }
 
@@ -84,7 +84,7 @@ resource "null_resource" "ansible-runs" {
       type                                = "ssh"
       user                                = "${var.proxy_admin_username}"
       password                            = "${var.proxy_admin_password}"
-      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
+      host                                = "${azurerm_public_ip.proxy-pip.ip_address}"
     }
   }
 
@@ -99,7 +99,7 @@ resource "null_resource" "ansible-runs" {
       type                                = "ssh"
       user                                = "${var.proxy_admin_username}"
       password                            = "${var.proxy_admin_password}"
-      host                                = "${azurerm_public_ip.proxy_pip.ip_address}"
+      host                                = "${azurerm_public_ip.proxy-pip.ip_address}"
     }
   }
 }
