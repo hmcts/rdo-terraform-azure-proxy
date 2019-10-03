@@ -36,3 +36,7 @@ variable "palo_subnet" {
 }
 
 variable "azcontainer_password" { }
+
+variable "environment" {
+  
+}
